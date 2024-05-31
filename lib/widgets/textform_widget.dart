@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../constants/color_constants.dart';
+
 class TextFormFieldWidget extends StatelessWidget {
   const TextFormFieldWidget({
     required this.textEditingController,
@@ -26,14 +28,14 @@ class TextFormFieldWidget extends StatelessWidget {
         child: TextFormField(
           controller: textEditingController,
           obscureText: obscureText,
-          style: TextStyle(color: Colors.grey,fontSize: 18.sp),
+          style: TextStyle(color: ColorConstants.grey,fontSize: 18.sp),
           decoration: InputDecoration(
               hintText: hintText,
               labelText: labelText,
-              hintStyle: TextStyle(color: Colors.grey,fontSize: 18.sp),
-              labelStyle: TextStyle(color: Colors.grey,fontSize: 18.sp),
+              hintStyle: TextStyle(color: ColorConstants.grey,fontSize: 18.sp),
+              labelStyle: TextStyle(color: ColorConstants.grey,fontSize: 18.sp),
               filled: true,
-              fillColor: const Color(0xff1f2430),
+              fillColor: ColorConstants.textFormFieldColor,
               suffixIcon: suffixIcon,
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.r))
