@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyC71CQByMKffKo6pocfaeHs0V06Dr4mvAk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1074106571955</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.thesimpsons</string>
+	<key>PROJECT_ID</key>
+	<string>thesimpsons-75096</string>
+	<key>STORAGE_BUCKET</key>
+	<string>thesimpsons-75096.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1074106571955:ios:35b1f59b5b451cebafa4c6</string>
+</dict>
+</plist>

@@ -102,9 +102,9 @@ class _LoginPageState extends State<LoginPage> {
                     height: 60,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                         shape: RoundedRectangleBorder(
-                             borderRadius: BorderRadius.circular(10.r)),
-                        primary: ColorConstants.yellow
+                        backgroundColor: ColorConstants.yellow,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.r)),
                       ),
                         onPressed: (){},
                         child: Text(TextConstants.loginNow,
@@ -128,8 +128,6 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ],
       ),
-
-
     );
   }
 }
