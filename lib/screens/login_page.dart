@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:thesimpsons/constants/color_constants.dart';
 import 'package:thesimpsons/constants/text_constants.dart';
+import 'package:thesimpsons/screens/create_account.dart';
 
 import '../widgets/textform_widget.dart';
+import '../widgets/elevated_button_widget.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -96,21 +98,11 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal : 10.w),
-                  child: SizedBox(
-                    height: 60,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: ColorConstants.yellow,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.r)),
-                      ),
-                        onPressed: (){},
-                        child: Text(TextConstants.loginNow,
-                          style: TextStyle(color: ColorConstants.black,fontSize: 18.sp),)),
-                  ),
-                ),
+                ElevatedButtonWidget(
+                  backgroundColor: ColorConstants.yellow,
+                  buttonTextColor:ColorConstants.black,
+                  buttonText:TextConstants.loginNow,
+                  onPressed: (){},),
                 Padding(
                   padding: EdgeInsets.all(5.w),
                   child: Row(
@@ -118,7 +110,9 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Text(TextConstants.dontHaveanAccount,
                           style: TextStyle(color: ColorConstants.grey,fontSize: 14.sp)),
-                      TextButton(onPressed: (){}, child: Text(TextConstants.createOne,
+                      TextButton( onPressed: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => CreateAccountPage()));},
+                          child: Text(TextConstants.createOne,
                         style:TextStyle(color: ColorConstants.yellow,fontSize: 14.sp),))
                     ],
                   ),
@@ -131,4 +125,5 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
 

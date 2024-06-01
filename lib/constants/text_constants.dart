@@ -17,4 +17,9 @@ class TextConstants {
   static const loginNow = 'Login Now';
   static const dontHaveanAccount = 'Don\'t have an account?';
   static const createOne = 'Create one';
+
+  //Create Account Page
+
+  static const createAccount = 'Create Account';
+  static const cancel = 'Cancel';
 }

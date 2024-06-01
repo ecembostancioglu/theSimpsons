@@ -22,7 +22,7 @@ class TextFormFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(10.w),
+      padding: EdgeInsets.symmetric(vertical: 5.w, horizontal: 10.w),
       child: SizedBox(
         height: 60.w,
         child: TextFormField(
