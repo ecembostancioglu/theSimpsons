@@ -40,7 +40,7 @@ dependencies:
   page_transition: ^2.1.0
   firebase_core: ^2.32.0
   firebase_auth: ^4.20.0
-
+  flutter_bloc: ^8.1.5
 
 
 dev_dependencies:
