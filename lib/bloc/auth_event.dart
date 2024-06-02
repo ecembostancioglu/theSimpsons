@@ -9,9 +9,7 @@ abstract class AuthEvent{
 class SignUpUser extends AuthEvent{ //Kayıt için 4 parametre alır.
   final String email;
   final String password;
-  final String name;
-  final String surname;
-  const SignUpUser(this.email, this.password, this.name, this.surname);
+  const SignUpUser(this.email, this.password);
 
   @override
   List<Object> get props => [email, password];

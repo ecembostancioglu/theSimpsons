@@ -10,6 +10,7 @@ class TextFormFieldWidget extends StatelessWidget {
     required this.hintText,
     required this.obscureText,
     this.suffixIcon,
+    this.validate,
     Key? key}) : super(key: key);
 
 
@@ -18,6 +19,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final String hintText;
   final bool obscureText;
   final GestureDetector? suffixIcon;
+  final String? Function(String?)? validate;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class TextFormFieldWidget extends StatelessWidget {
         child: TextFormField(
           controller: textEditingController,
           obscureText: obscureText,
+          validator: validate,
           style: TextStyle(color: ColorConstants.grey,fontSize: 18.sp),
           decoration: InputDecoration(
               hintText: hintText,

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:thesimpsons/bloc/auth_bloc.dart';
 import 'package:thesimpsons/constants/color_constants.dart';
 import 'package:thesimpsons/constants/text_constants.dart';
 import 'package:thesimpsons/screens/create_account.dart';
+import 'package:thesimpsons/screens/home_page.dart';
+import 'package:thesimpsons/utils/validators/auth_validators.dart';
 
 import '../widgets/textform_widget.dart';
 import '../widgets/elevated_button_widget.dart';
@@ -17,6 +21,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
 
   final _formKey = GlobalKey<FormState>();
+  final AuthValidators authValidator = AuthValidators();
+
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool _obscureText = true;
@@ -46,10 +52,12 @@ class _LoginPageState extends State<LoginPage> {
                   hintText: TextConstants.emailAddress,
                     labelText: TextConstants.emailAddress,
                     obscureText: false,
+                    validate: (value) => authValidator.emailValidator(value),
                     textEditingController: emailController),
                 TextFormFieldWidget(
                     hintText: TextConstants.password,
                     labelText: TextConstants.password,
+                    validate: (value) => authValidator.passwordValidator(value),
                     suffixIcon: GestureDetector(
                       onTap: (){
                         setState(() {
@@ -86,7 +94,6 @@ class _LoginPageState extends State<LoginPage> {
                               style: TextStyle(color: ColorConstants.grey),
                             ),
                           )
-
                         ],
                       ),
                        Text(
@@ -98,11 +105,37 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-                ElevatedButtonWidget(
-                  backgroundColor: ColorConstants.yellow,
-                  buttonTextColor:ColorConstants.black,
-                  buttonText:TextConstants.loginNow,
-                  onPressed: (){},),
+                BlocConsumer<AuthBloc,AuthState>(
+                 listener: (context,state){
+                   if (state is AuthSuccessState){
+                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
+                   } else if(state is AuthFailureState){
+                     ScaffoldMessenger.of(context).showSnackBar(
+                       const SnackBar(
+                         content: Text(TextConstants.checkYourEmail),
+                       ),
+                     );
+                   }
+                 },
+                  builder: (context, state){
+                   return ElevatedButtonWidget(
+                     backgroundColor: ColorConstants.yellow,
+                     buttonTextColor:ColorConstants.black,
+                     buttonText:TextConstants.loginNow,
+                     onPressed: (){
+                       if (_formKey.currentState!.validate()){
+                         BlocProvider.of<AuthBloc>(context).add(
+                             SignInUser(emailController.text.trim(), passwordController.text.trim()));
+                       } else {
+                         ScaffoldMessenger.of(context).showSnackBar(
+                           const SnackBar(
+                             content: Text(TextConstants.tryAgain),
+                           ),
+                         );
+                       }
+                     },);
+                  },
+                ),
                 Padding(
                   padding: EdgeInsets.all(5.w),
                   child: Row(
@@ -111,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                       Text(TextConstants.dontHaveanAccount,
                           style: TextStyle(color: ColorConstants.grey,fontSize: 14.sp)),
                       TextButton( onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => CreateAccountPage()));},
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateAccountPage()));},
                           child: Text(TextConstants.createOne,
                         style:TextStyle(color: ColorConstants.yellow,fontSize: 14.sp),))
                     ],
