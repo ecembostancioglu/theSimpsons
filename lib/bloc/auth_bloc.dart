@@ -1,5 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thesimpsons/core/auth_service.dart';
 import 'package:thesimpsons/model/user_model.dart';
@@ -52,8 +53,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         authService.signOutUser();
       } catch (e) {
-        print('error');
         print(e.toString());
+      }
+    });
+
+    on<ResetEmail>((event,emit) async{
+      try {
+        authService.passwordResetWithMail(mail: event.email);
+        emit(AuthResetEmailState());
+      }catch (e){
+        print(e.toString());
+        emit(const AuthFailureState('Password reset failed'));
       }
     });
   }

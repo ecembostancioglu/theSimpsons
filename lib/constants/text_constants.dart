@@ -22,6 +22,10 @@ class TextConstants {
 
   static const remember_me = 'remember_me';
   static const email = 'email';
+  static const resetButton = 'Reset Your Password';
+  static const alertTitle = 'Sent email.';
+  static const alertMessage = 'Please check your emails.';
+  static const ok = 'OK';
 
   //Create Account Page
 

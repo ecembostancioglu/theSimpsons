@@ -27,12 +27,14 @@ class _LoginPageState extends State<LoginPage> {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final resetEmailController = TextEditingController();
   bool _obscureText = true;
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    resetEmailController.dispose();
     super.dispose();
   }
 
@@ -43,6 +45,25 @@ class _LoginPageState extends State<LoginPage> {
 
     if (rememberMeProvider.isChecked) {
       emailController.text = rememberMeProvider.email;
+    }
+    showAlertDialog(BuildContext context) {
+      AlertDialog alert = AlertDialog(
+        title: const Text(TextConstants.alertTitle),
+        content: const Text(TextConstants.alertMessage),
+        actions: [
+          TextButton(
+            child: const Text(TextConstants.ok),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ],
+      );
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
     }
     return Scaffold(
       body: Stack(
@@ -110,11 +131,38 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ],
                           ),
-                          Text(
-                            TextConstants.forgotPassword,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: ColorConstants.yellow),
+                          TextButton(
+                            onPressed: (){
+                                 showModalBottomSheet(
+                                  backgroundColor: ColorConstants.grey,
+                                  context: context, builder: (context)
+                              => Column(
+                                children: [
+                                  Padding(
+                                      padding: EdgeInsets.all(16.w),
+                                      child: TextFormFieldWidget(
+                                        textEditingController:resetEmailController,
+                                        labelText: TextConstants.emailAddress,
+                                        obscureText: false,
+                                        hintText: TextConstants.emailAddress,
+                                      ),),
+                                  ElevatedButtonWidget(
+                                    backgroundColor: ColorConstants.yellow,
+                                    buttonText:TextConstants.resetButton,
+                                    buttonTextColor: ColorConstants.black,
+                                    onPressed: (){
+                                        if(resetEmailController.text != ""){
+                                          context.read<AuthBloc>().add(ResetEmail(resetEmailController.text));
+                                          showAlertDialog(context);
+                                        }
+                                      },)
+                                ],
+                              ));
+                            },
+                            child: Text(TextConstants.forgotPassword,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: ColorConstants.yellow),),
                           )
                         ],
                       ),

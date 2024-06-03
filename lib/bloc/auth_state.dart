@@ -23,4 +23,8 @@ class AuthFailureState extends AuthState { //Yüklenemedi
 
   @override
   List<Object> get props => [errorMessage];  //Yüklenemezse hata mesajı döndürülecek
+
 }
+
+
+class AuthResetEmailState extends AuthState{}

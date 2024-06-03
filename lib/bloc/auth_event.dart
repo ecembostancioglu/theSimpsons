@@ -26,3 +26,11 @@ class SignInUser extends AuthEvent{ // Giriş için 2 parametre alır.
 }
 
 class SignOut extends AuthEvent{}
+
+class ResetEmail extends AuthEvent{
+  final String email;
+
+  const ResetEmail(this.email);
+
+  List<Object> get props => [email];
+}
