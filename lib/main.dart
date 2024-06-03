@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:thesimpsons/bloc/auth_bloc.dart';
+import 'package:thesimpsons/bloc/remember_me_bloc.dart';
 import 'package:thesimpsons/firebase_options.dart';
 import 'package:thesimpsons/screens/splash_screen.dart';
 
@@ -11,8 +12,15 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(BlocProvider(
-      create: (context) => AuthBloc(),
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider<AuthBloc>(
+        create: (context) => AuthBloc(),
+      ),
+      BlocProvider<RememberMeBloc>(
+        create: (context) => RememberMeBloc(),
+      ),
+    ],
       child: const MyApp()));
 }
 

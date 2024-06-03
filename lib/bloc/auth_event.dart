@@ -11,7 +11,6 @@ class SignUpUser extends AuthEvent{ //Kayıt için 4 parametre alır.
   final String password;
   const SignUpUser(this.email, this.password);
 
-  @override
   List<Object> get props => [email, password];
 }
 
@@ -21,7 +20,6 @@ class SignInUser extends AuthEvent{ // Giriş için 2 parametre alır.
 
   const SignInUser(this.email, this.password);
 
-  @override
   List<Object> get props => [email, password];
 }
 
