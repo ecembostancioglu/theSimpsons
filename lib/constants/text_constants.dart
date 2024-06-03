@@ -20,6 +20,9 @@ class TextConstants {
   static const checkYourEmail = 'Please check your email and password.';
   static const tryAgain = 'Failed to log in. Please try again.';
 
+  static const remember_me = 'remember_me';
+  static const email = 'email';
+
   //Create Account Page
 
   static const createAccount = 'Create Account';
