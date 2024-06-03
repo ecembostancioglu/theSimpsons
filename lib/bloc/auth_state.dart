@@ -8,18 +8,12 @@ abstract class AuthState{
 
 class AuthInitialState extends AuthState{} //Başlangıç durumu
 
-class AuthLoadingState extends AuthState{  //Yüklenme durumu
-  final bool isLoading;
-
-  AuthLoadingState({required this.isLoading});
-}
-
 class AuthSuccessState extends AuthState{ //Yükleme başarılı
   final UserModel user;
 
   const AuthSuccessState(this.user);
   @override
-  List<Object> get props => [user]; // Yükleme başarılıysa kullanıcılar listesi döndürülecek
+  List<Object> get props => [user]; // Yükleme başarılıysa kullanıcılar döndürülecek
 }
 
 class AuthFailureState extends AuthState { //Yüklenemedi

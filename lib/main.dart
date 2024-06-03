@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:thesimpsons/bloc/auth_bloc.dart';
-import 'package:thesimpsons/bloc/remember_me_bloc.dart';
 import 'package:thesimpsons/firebase_options.dart';
 import 'package:thesimpsons/screens/splash_screen.dart';
 
@@ -12,16 +11,11 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MultiBlocProvider(
-    providers: [
+  runApp(
       BlocProvider<AuthBloc>(
-        create: (context) => AuthBloc(),
-      ),
-      BlocProvider<RememberMeBloc>(
-        create: (context) => RememberMeBloc(),
-      ),
-    ],
-      child: const MyApp()));
+          create: (context) => AuthBloc(),
+          child: const MyApp()
+      ));
 }
 
 class MyApp extends StatelessWidget {
@@ -32,7 +26,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       builder: (_,child){
-        return MaterialApp(
+        return const MaterialApp(
           debugShowCheckedModeBanner: false,
           home: SplashScreen(),
         );

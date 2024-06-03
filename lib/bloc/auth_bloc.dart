@@ -1,4 +1,5 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:thesimpsons/core/auth_service.dart';
 import 'package:thesimpsons/model/user_model.dart';
@@ -13,11 +14,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthEvent>((event, emit) {});
 
     on<SignUpUser>((event, emit) async { //Sign Up olayını dinler
-      emit(AuthLoadingState(isLoading: true)); //Üye olma işleminin devam ettiğini söyler
       try {
         final UserModel? user =
-        await authService.signUpUser(event.email, event.password); //email ve password ile user oluşturmaya çalışır
+        await authService.signUpUser(event.email, event.password, event.name, event.surname); //email ve password ile user oluşturmaya çalışır
         if (user != null) {
+          await FirebaseFirestore.instance.collection('users').doc(user.id).set({ //Firestore'a kullanıcı bilgilerini kaydetme
+            'name': event.name,
+            'surname': event.surname,
+            'email': event.email,
+          });
           emit(AuthSuccessState(user)); //Kayıt olma başarılı
 
         } else {
@@ -26,11 +31,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } catch (e) {
         print(e.toString());
       }
-      emit(AuthLoadingState(isLoading: false)); //Create user işleminin sonlandığını söyler
     });
 
     on<SignInUser>((event, emit) async {
-      emit(AuthLoadingState(isLoading: true));
       try {
         final UserModel? user =
         await authService.signInUser(event.email, event.password);
@@ -43,18 +46,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } catch (e) {
         print(e.toString());
       }
-      emit(AuthLoadingState(isLoading: false));
     });
 
     on<SignOut>((event, emit) async {
-      emit(AuthLoadingState(isLoading: true));
       try {
         authService.signOutUser();
       } catch (e) {
         print('error');
         print(e.toString());
       }
-      emit(AuthLoadingState(isLoading: false));
     });
   }
 }

@@ -107,7 +107,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       BlocProvider.of<AuthBloc>(context).add(
                           SignUpUser(
                               _emailController.text.trim(),
-                              _passwordController.text.trim()));
+                              _passwordController.text.trim(),
+                              _nameController.text.trim(),
+                              _surnameController.text.trim()));
                     }
                   });
               },

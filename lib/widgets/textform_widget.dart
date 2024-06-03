@@ -20,7 +20,6 @@ class TextFormFieldWidget extends StatelessWidget {
   final bool obscureText;
   final GestureDetector? suffixIcon;
   final String? Function(String?)? validate;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
