@@ -2,8 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:thesimpsons/bloc/auth_bloc.dart';
 import 'package:thesimpsons/firebase_options.dart';
+import 'package:thesimpsons/providers/remember_me_provider.dart';
 import 'package:thesimpsons/screens/splash_screen.dart';
 
 void main() async {
@@ -11,11 +13,16 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(
-      BlocProvider<AuthBloc>(
-          create: (context) => AuthBloc(),
-          child: const MyApp()
-      ));
+  runApp(MultiProvider(
+      providers: [
+        BlocProvider<AuthBloc>(
+            create: (context) => AuthBloc(),
+        ),
+        ChangeNotifierProvider<RememberMeProvider>(
+          create: (context) => RememberMeProvider(),
+        ),
+      ],
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

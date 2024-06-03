@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 import 'package:thesimpsons/bloc/auth_bloc.dart';
 import 'package:thesimpsons/constants/color_constants.dart';
 import 'package:thesimpsons/constants/text_constants.dart';
-import 'package:thesimpsons/screens/create_account.dart';
+import 'package:thesimpsons/providers/remember_me_provider.dart';
+import 'package:thesimpsons/screens/create_account_page.dart';
 import 'package:thesimpsons/screens/home_page.dart';
 import 'package:thesimpsons/utils/validators/auth_validators.dart';
 
@@ -27,50 +28,6 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool _obscureText = true;
-  bool _isChecked = false;
-
-  void _reloadRememberme(bool value){ //Checkbox rememberMe kodu
-    setState(() {
-      _isChecked = value;
-    });
-  }
-
-  void _handleRememberme(bool value) {
-    setState(() {
-      _isChecked = value;
-    });
-    SharedPreferences.getInstance().then(
-          (prefs) {
-        prefs.setBool(TextConstants.remember_me, value); //RememberMe tercihine göre bool değerini kaydeder.
-        prefs.setString(TextConstants.email, emailController.text); //RememberMe tercihine göre email kaydeder.
-      },
-    );
-  }
-
-  void _loadUserEmailPassword() async {
-
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      var email = prefs.getString(TextConstants.email) ?? ""; //Kaydedilmiş emaili Shared Preferencestan alır.
-      var rememberMe = prefs.getBool(TextConstants.remember_me) ?? false; //Remember Me tercihini Shared Preferencestan alır.
-
-      if (rememberMe) {
-        setState(() {
-          _isChecked = true;
-        });
-        emailController.text = email;
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  @override
-  void initState() {
-    _loadUserEmailPassword();
-    super.initState();
-  }
-
 
   @override
   void dispose() {
@@ -81,6 +38,12 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final rememberMeProvider = Provider.of<RememberMeProvider>(context);
+
+    if (rememberMeProvider.isChecked) {
+      emailController.text = rememberMeProvider.email;
+    }
     return Scaffold(
       body: Stack(
         children: [
@@ -135,12 +98,10 @@ class _LoginPageState extends State<LoginPage> {
                                 offset: Offset(0, -12.w),
                                 child: Checkbox(
                                     activeColor: ColorConstants.checkboxColor,
-                                    value: _isChecked,
-                                    onChanged: (bool? value){
-                                      _reloadRememberme(value!);
-                                      setState(() {
-                                        _isChecked = value;
-                                      });
+                                    value:  rememberMeProvider.isChecked,
+                                    onChanged: (value){
+                                      rememberMeProvider.setRememberMe(
+                                          value ?? false, emailController.text);
                                     }),
                               ),
                               Text(
@@ -161,7 +122,8 @@ class _LoginPageState extends State<LoginPage> {
                     BlocConsumer<AuthBloc,AuthState>(
                       listener: (context,state){
                         if (state is AuthSuccessState){
-                          _handleRememberme(_isChecked);
+                          rememberMeProvider.setRememberMe(
+                              rememberMeProvider.isChecked, emailController.text);
                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
                         } else if(state is AuthFailureState){
                           ScaffoldMessenger.of(context).showSnackBar(
