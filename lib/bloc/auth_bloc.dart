@@ -1,7 +1,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:thesimpsons/constants/text_constants.dart';
 import 'package:thesimpsons/core/auth_service.dart';
 import 'package:thesimpsons/model/user_model.dart';
 
@@ -27,7 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(AuthSuccessState(user)); //Kayıt olma başarılı
 
         } else {
-          emit(const AuthFailureState('create user failed')); // Hesap oluşturma başarısız hatası
+          emit(const AuthFailureState(TextConstants.createUserFailed)); // Hesap oluşturma başarısız hatası
         }
       } catch (e) {
         print(e.toString());
@@ -42,7 +42,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(AuthSuccessState(user));
 
         } else {
-          emit(const AuthFailureState('incorrect entry'));
+          emit(const AuthFailureState(TextConstants.incorrectEntry));
         }
       } catch (e) {
         print(e.toString());
@@ -63,7 +63,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthResetEmailState());
       }catch (e){
         print(e.toString());
-        emit(const AuthFailureState('Password reset failed'));
+        emit(const AuthFailureState(TextConstants.passwordFailed));
       }
     });
   }

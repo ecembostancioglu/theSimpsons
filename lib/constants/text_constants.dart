@@ -1,5 +1,4 @@
 
-
 class TextConstants {
 
   // Splash Screen
@@ -39,4 +38,14 @@ class TextConstants {
 
   static const logout = 'Logout';
 
+  //Auth Validators
+
+  static const invalidEmail = 'Invalid email address, please try again.';
+  static const passwordChars = 'Password must be at least 6 characters.';
+
+  //Bloc
+
+  static const createUserFailed = 'Create user failed';
+  static const incorrectEntry = 'Incorrect entry';
+  static const passwordFailed = 'Password reset failed';
 }

@@ -53,23 +53,23 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   child: Text(TextConstants.createAccount,
                     style: TextStyle(color: ColorConstants.yellow,fontSize: 24.sp),),
                 )),
-            TextFormFieldWidget(
+            TextFormFieldWidget( //Name TextField
                 textEditingController: _nameController,
                 labelText: TextConstants.name,
                 hintText: TextConstants.name,
                 obscureText: false),
-            TextFormFieldWidget(
+            TextFormFieldWidget( //Surname TextField
                 textEditingController: _surnameController,
                 labelText: TextConstants.surname,
                 hintText: TextConstants.surname,
                 obscureText: false),
-            TextFormFieldWidget(
+            TextFormFieldWidget( //Email TextField
                 textEditingController: _emailController,
                 labelText: TextConstants.emailAddress,
                 hintText: TextConstants.emailAddress,
                 validate: (val) => authValidator.emailValidator(val),
                 obscureText: false),
-            TextFormFieldWidget(
+            TextFormFieldWidget( //Password TextField
                 textEditingController: _passwordController,
                 labelText: TextConstants.password,
                 hintText: TextConstants.password,
@@ -98,7 +98,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 }
               },
               builder: (context,state){
-                return  ElevatedButtonWidget(
+                return  ElevatedButtonWidget( //Create Account Button
                   backgroundColor: ColorConstants.yellow,
                   buttonTextColor:ColorConstants.black,
                   buttonText:TextConstants.createAccount,
@@ -115,7 +115,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               },
             ),
             SizedBox(height: 10.w),
-            ElevatedButtonWidget(
+            ElevatedButtonWidget( //Cancel Button
               backgroundColor: ColorConstants.red,
               buttonTextColor:ColorConstants.white,
               buttonText:TextConstants.cancel,

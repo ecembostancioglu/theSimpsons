@@ -57,7 +57,6 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ],
       );
-
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -83,17 +82,17 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: 400.w),
                 Column(
                   children: [
-                    TextFormFieldWidget(
+                    TextFormFieldWidget( //Email TextField
                         hintText: TextConstants.emailAddress,
                         labelText: TextConstants.emailAddress,
                         obscureText: false,
                         validate: (value) => authValidator.emailValidator(value),
                         textEditingController: emailController),
-                    TextFormFieldWidget(
+                    TextFormFieldWidget( //Password TextField
                         hintText: TextConstants.password,
                         labelText: TextConstants.password,
                         validate: (value) => authValidator.passwordValidator(value),
-                        suffixIcon: GestureDetector(
+                        suffixIcon: GestureDetector( //Visible password
                           onTap: (){
                             setState(() {
                               _obscureText = !_obscureText;
@@ -115,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Transform.translate(
+                              Transform.translate( //Checkbox
                                 offset: Offset(0, -12.w),
                                 child: Checkbox(
                                     activeColor: ColorConstants.checkboxColor,
@@ -125,16 +124,16 @@ class _LoginPageState extends State<LoginPage> {
                                           value ?? false, emailController.text);
                                     }),
                               ),
-                              Text(
+                              Text(  //Checkbox Text
                                 TextConstants.rememberMe,
                                 style: TextStyle(color: ColorConstants.grey),
                               ),
                             ],
                           ),
-                          TextButton(
+                          TextButton(  //Forgot Password
                             onPressed: (){
                                  showModalBottomSheet(
-                                  backgroundColor: ColorConstants.grey,
+                                  backgroundColor: ColorConstants.black,
                                   context: context, builder: (context)
                               => Column(
                                 children: [
@@ -182,7 +181,7 @@ class _LoginPageState extends State<LoginPage> {
                         }
                       },
                       builder: (context, state){
-                        return ElevatedButtonWidget(
+                        return ElevatedButtonWidget( //Login Now Button
                           backgroundColor: ColorConstants.yellow,
                           buttonTextColor:ColorConstants.black,
                           buttonText:TextConstants.loginNow,
@@ -201,7 +200,7 @@ class _LoginPageState extends State<LoginPage> {
                       },
                     )],
                 ),
-                Padding(
+                Padding(//Dont have any account? Text and Create One Button
                   padding: EdgeInsets.all(5.w),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

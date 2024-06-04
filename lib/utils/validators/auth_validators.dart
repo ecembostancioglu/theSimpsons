@@ -1,9 +1,11 @@
+import 'package:thesimpsons/constants/text_constants.dart';
+
 class AuthValidators {
 
   static const String emailErrMsg =
-      "Invalid email address, please try again.";
+      TextConstants.invalidEmail;
   static const String passwordErrMsg =
-      "Password must be at least 6 characters.";
+      TextConstants.passwordChars;
 
   String? emailValidator(String? val) {
     final String email = val as String;

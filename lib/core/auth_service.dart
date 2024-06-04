@@ -70,7 +70,7 @@ class AuthService {
 
   //Forgot Password
 
-  void passwordResetWithMail ({required String mail}) async {
+  Future <void> passwordResetWithMail ({required String mail}) async {
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: mail);
     }catch (e) {
